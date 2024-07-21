@@ -13,12 +13,16 @@ const MessageInput = () => {
     setMessage("");
   };
 
+  const inputClassName = message
+    ? "border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 text-white"
+    : "border text-sm rounded-lg block w-full p-2.5 bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border-gray-600 text-white";
+
   return (
     <form className="px-4 my-3" onSubmit={handleSubmit}>
       <div className="w-full relative">
         <input
           type="text"
-          className="border text-sm rounded-lg block w-full p-2.5  bg-gray-700 border-gray-600 text-white"
+          className={inputClassName}
           placeholder="Send a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -37,6 +41,7 @@ const MessageInput = () => {
     </form>
   );
 };
+
 export default MessageInput;
 
 // STARTER CODE SNIPPET

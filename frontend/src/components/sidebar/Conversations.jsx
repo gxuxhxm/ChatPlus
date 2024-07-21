@@ -1,3 +1,4 @@
+import React from "react";
 import useGetConversations from "../../hooks/useGetConversations";
 import { getRandomEmoji } from "../../utils/emojis";
 import Conversation from "./Conversation";
@@ -21,6 +22,7 @@ const Conversations = () => {
     </div>
   );
 };
+
 export default Conversations;
 
 // STARTER CODE SNIPPET

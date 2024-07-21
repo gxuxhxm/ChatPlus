@@ -14,6 +14,8 @@ dist-ssr
 
 #added the local .env 
 .env 
+file-structure.txt
+
 
 
 # Editor directories and files

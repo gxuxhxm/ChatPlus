@@ -5,6 +5,8 @@ import useLogin from "../../hooks/useLogin";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   const { loading, login } = useLogin();
 
@@ -18,7 +20,7 @@ const Login = () => {
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Login
-          <span className="text-green-500"> ChatApp</span>
+          <span className="text-green-500"> Chat+</span>
         </h1>
 
         <form onSubmit={handleSubmit}>
@@ -29,9 +31,15 @@ const Login = () => {
             <input
               type="text"
               placeholder="Enter username"
-              className="w-full input input-bordered h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isUsernameFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onFocus={() => setIsUsernameFocused(true)}
+              onBlur={() => setIsUsernameFocused(username.length > 0)}
             />
           </div>
 
@@ -42,22 +50,32 @@ const Login = () => {
             <input
               type="password"
               placeholder="Enter Password"
-              className="w-full input input-bordered h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isPasswordFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={() => setIsPasswordFocused(password.length > 0)}
             />
           </div>
+
           <Link
             to="/signup"
-            className="text-sm  hover:underline hover:text-blue-600 mt-2 inline-block"
+            className="text-sm hover:underline hover:text-green-500 mt-2 inline-block"
           >
             {"Don't"} have an account?
           </Link>
 
           <div>
-            <button className="btn btn-block btn-sm mt-2" disabled={loading}>
+            <button
+              className="btn btn-block btn-sm mt-2 relative overflow-hidden bg-transparent text-white border border-gray-300 transition-colors duration-300 hover:bg-green-500 hover:text-black"
+              disabled={loading}
+            >
               {loading ? (
-                <span className="loading loading-spinner "></span>
+                <span className="loading loading-spinner"></span>
               ) : (
                 "Login"
               )}
@@ -68,6 +86,7 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
 
 // STARTER CODE FOR THIS FILE

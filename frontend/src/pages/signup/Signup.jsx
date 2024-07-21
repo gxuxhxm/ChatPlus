@@ -12,6 +12,12 @@ const SignUp = () => {
     gender: "",
   });
 
+  const [isFullNameFocused, setIsFullNameFocused] = useState(false);
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [isConfirmPasswordFocused, setIsConfirmPasswordFocused] =
+    useState(false);
+
   const { loading, signup } = useSignup();
 
   const handleCheckboxChange = (gender) => {
@@ -27,7 +33,7 @@ const SignUp = () => {
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
-          Sign Up <span className="text-blue-500"> ChatApp</span>
+          Sign Up <span className="text-green-500"> Chat+</span>
         </h1>
 
         <form onSubmit={handleSubmit}>
@@ -38,11 +44,17 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="John Doe"
-              className="w-full input input-bordered  h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isFullNameFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={inputs.fullName}
               onChange={(e) =>
                 setInputs({ ...inputs, fullName: e.target.value })
               }
+              onFocus={() => setIsFullNameFocused(true)}
+              onBlur={() => setIsFullNameFocused(inputs.fullName.length > 0)}
             />
           </div>
 
@@ -53,11 +65,17 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="johndoe"
-              className="w-full input input-bordered h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isUsernameFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={inputs.username}
               onChange={(e) =>
                 setInputs({ ...inputs, username: e.target.value })
               }
+              onFocus={() => setIsUsernameFocused(true)}
+              onBlur={() => setIsUsernameFocused(inputs.username.length > 0)}
             />
           </div>
 
@@ -68,11 +86,17 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Enter Password"
-              className="w-full input input-bordered h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isPasswordFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={inputs.password}
               onChange={(e) =>
                 setInputs({ ...inputs, password: e.target.value })
               }
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={() => setIsPasswordFocused(inputs.password.length > 0)}
             />
           </div>
 
@@ -83,10 +107,18 @@ const SignUp = () => {
             <input
               type="password"
               placeholder="Confirm Password"
-              className="w-full input input-bordered h-10"
+              className={`w-full input input-bordered h-10 transition-colors duration-300 ${
+                isConfirmPasswordFocused
+                  ? "bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 text-white"
+                  : "bg-transparent text-white border border-gray-300"
+              }`}
               value={inputs.confirmPassword}
               onChange={(e) =>
                 setInputs({ ...inputs, confirmPassword: e.target.value })
+              }
+              onFocus={() => setIsConfirmPasswordFocused(true)}
+              onBlur={() =>
+                setIsConfirmPasswordFocused(inputs.confirmPassword.length > 0)
               }
             />
           </div>
@@ -98,7 +130,7 @@ const SignUp = () => {
 
           <Link
             to={"/login"}
-            className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
+            className="text-sm hover:underline hover:text-green-500 mt-2 inline-block"
             href="#"
           >
             Already have an account?
@@ -106,7 +138,7 @@ const SignUp = () => {
 
           <div>
             <button
-              className="btn btn-block btn-sm mt-2 border border-slate-700"
+              className="btn btn-block btn-sm mt-2 relative overflow-hidden bg-transparent text-white border border-gray-300 transition-colors duration-300 hover:bg-green-500 hover:text-black"
               disabled={loading}
             >
               {loading ? (
@@ -121,6 +153,7 @@ const SignUp = () => {
     </div>
   );
 };
+
 export default SignUp;
 
 // STARTER CODE FOR THE SIGNUP COMPONENT
